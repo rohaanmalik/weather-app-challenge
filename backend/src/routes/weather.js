@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const got = require('got');
 require('dotenv').config();
+const geocode = require('../zip-codes-to-geo-coords.json')
 
 router.get("/",  async (req, res) => {
     const data = await got({
@@ -10,11 +11,12 @@ router.get("/",  async (req, res) => {
     const dataJson = JSON.parse(data.body);
 
     const { list: hourlyWeather } = dataJson;
-
+    const latLong = geocode[req.query.zip];
+    console.log(latLong);
     // process the data and give out only relevant info 
     // make another call (one-call)
     const allData = await got({
-        url: `https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,alerts&appid=${process.env.API_KEY}`,
+        url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latLong[0]}&lon=${latLong[1]}&exclude=minutely,alerts&appid=${process.env.API_KEY}`,
     });
 
     const allDataJson = JSON.parse(allData.body);
