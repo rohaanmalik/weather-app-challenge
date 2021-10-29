@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const got = require('got');
+require('dotenv').config();
 
 router.get("/",  async (req, res) => {
     const data = await got({
-        url: 'https://api.openweathermap.org/data/2.5/forecast?zip=37934,us&appid=770cb1de97d06d65ef3763f1f4dcce4f',
+        url: `https://api.openweathermap.org/data/2.5/forecast?zip=37934,us&appid=${process.env.API_KEY}`,
     });
     const dataJson = JSON.parse(data.body);
 
@@ -13,7 +14,7 @@ router.get("/",  async (req, res) => {
     // process the data and give out only relevant info 
     // make another call (one-call)
     const allData = await got({
-        url: 'https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,alerts&appid=770cb1de97d06d65ef3763f1f4dcce4f',
+        url: `https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,alerts&appid=${process.env.API_KEY}`,
     });
 
     const allDataJson = JSON.parse(allData.body);
