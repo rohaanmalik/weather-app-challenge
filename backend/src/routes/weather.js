@@ -5,7 +5,7 @@ require('dotenv').config();
 
 router.get("/",  async (req, res) => {
     const data = await got({
-        url: `https://api.openweathermap.org/data/2.5/forecast?zip=37934,us&appid=${process.env.API_KEY}`,
+        url: `https://api.openweathermap.org/data/2.5/forecast?zip=${req.query.zip},us&appid=${process.env.API_KEY}`,
     });
     const dataJson = JSON.parse(data.body);
 
