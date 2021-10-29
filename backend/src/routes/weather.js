@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const got = require('got');
 require('dotenv').config();
-const geocode = require('../zip-codes-to-geo-coords.json')
+const geocode = require('../utils/zip-codes-to-geo-coords.json')
 
 router.get("/",  async (req, res) => {
     const data = await got({
