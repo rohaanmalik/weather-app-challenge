@@ -1,12 +1,8 @@
-import React from "react";
 import {
-  VStack,
-  IconButton,
-  HStack,
-  Input,
-  Heading,
+    Heading, HStack, IconButton, Input, VStack
 } from "@chakra-ui/react";
-import { FiSearch } from 'react-icons/fi'
+import React from "react";
+import { FiSearch } from 'react-icons/fi';
 
 export default function SearchBar() {
     return (
