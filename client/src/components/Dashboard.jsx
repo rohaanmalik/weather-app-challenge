@@ -1,6 +1,4 @@
-import {
-  IconButton, VStack
-} from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 import React from "react";
 import SearchBar from "./SearchBar";
 
