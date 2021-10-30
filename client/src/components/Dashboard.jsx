@@ -20,7 +20,7 @@ export default function Dashboard() {
         alignSelf="flex-end"
       />
       <Heading mb="8" size="xl">
-        Search your city
+        Search your zip
       </Heading>
       <HStack>
         <Input
