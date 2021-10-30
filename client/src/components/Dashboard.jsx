@@ -9,12 +9,6 @@ export default function Dashboard() {
 
   return (
     <VStack>
-      <IconButton
-        aria-label="Toggle Dark Mode"
-        m="8"
-        size="md"
-        alignSelf="flex-end"
-      />
     <SearchBar/>
     </VStack>
   );
