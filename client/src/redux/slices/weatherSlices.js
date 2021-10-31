@@ -1,22 +1,31 @@
 import { createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
-import axios from "axios"
+import axios from "axios";
+
+const initialState = {
+    loading: false,
+    error: false,
+    weather: []
+}
 
 
-export const getWeatherAsync = createAsyncThunk("weather/getWeather", async () => {
+export const getWeatherAsync = createAsyncThunk(
+  "weather/getWeatherAsync",
+  async (payload ) => {
     try {
-        const { data } = await axios.get("http://localhost:4000/weather")
-        return data;
+      const { data } = await axios.get(`http://localhost:4000/weather?zip=${payload.zip}`);
+      return data;
     } catch (error) {
-        if (!error?.response) {
-            throw error
-        }
-        return rejectwithValue(error?.response?.data)
+      if (!error?.response) {
+        throw error;
+      }
+      return isRejectedWithValue(error?.response?.data);
     }
-});
+  }
+);
 
 const weatherSlice = createSlice({
     name: "weatherData",
-    initialState: [],
+    initialState,
     reducers: {
     },
     extraReducers: (builder) => { 
@@ -37,3 +46,5 @@ const weatherSlice = createSlice({
         });
     }
 })
+
+export default weatherSlice.reducer;
