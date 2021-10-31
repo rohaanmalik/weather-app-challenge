@@ -13,7 +13,7 @@ export default function SearchBar() {
         <HStack>
           <Input
             type="text"
-            placeholder="Enter city name"
+            placeholder="Enter US zip"
             // value={result}
             // onChange={(event) => setResult(event.target.value)}
           />
