@@ -20,11 +20,15 @@ router.get("/",  async (req, res) => {
     });
 
     const allDataJson = JSON.parse(allData.body);
+
     // get uvi and add make it into one response
     const { daily } = allDataJson;
+
     getUviForTheDay(hourlyWeather, daily)
-    // give that response
-    res.json(hourlyWeather);
+
+    const weatherData = aggregateJsonToDates(hourlyWeather)
+
+    res.json(weatherData);
     
 });
 
@@ -41,6 +45,28 @@ function getUviForTheDay(listA, listB){
         element.uvi = dateToUvi.get(somedate.toLocaleDateString()).uvi
     });
 
+}
+
+function aggregateJsonToDates(listA) {
+    
+    const dateToJson = new Map();
+    listA.forEach(elem => {
+        let date = new Date(elem.dt * 1000)
+        console.log(date.toLocaleDateString())
+        if (dateToJson.has(date.toLocaleDateString())){
+            let temp = dateToJson.get(date.toLocaleDateString())
+            temp.push(elem)
+            dateToJson.set(date.toLocaleDateString(), temp)
+        } else {
+            let newArr = [elem]
+            dateToJson.set(date.toLocaleDateString(), newArr)
+
+        }
+    })
+    let obj = Object.fromEntries(dateToJson);
+    let jsonString = JSON.stringify(obj);
+    const dataJson = JSON.parse(jsonString);
+    return dataJson
 }
 
 module.exports = router;
