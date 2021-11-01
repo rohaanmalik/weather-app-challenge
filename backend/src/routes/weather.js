@@ -11,6 +11,7 @@ router.get("/",  async (req, res) => {
     const dataJson = JSON.parse(data.body);
 
     const { list: hourlyWeather } = dataJson;
+    const { city } = dataJson;
     const latLong = geocode[req.query.zip];
     console.log(latLong);
     // process the data and give out only relevant info 
@@ -27,6 +28,7 @@ router.get("/",  async (req, res) => {
     getUviForTheDay(hourlyWeather, daily)
 
     const weatherData = aggregateJsonToDates(hourlyWeather)
+    weatherData['city'] = city;
 
     res.json(weatherData);
     
@@ -52,7 +54,7 @@ function aggregateJsonToDates(listA) {
     const dateToJson = new Map();
     listA.forEach(elem => {
         let date = new Date(elem.dt * 1000)
-        console.log(date.toLocaleDateString())
+        // console.log(date.toLocaleDateString())
         if (dateToJson.has(date.toLocaleDateString())){
             let temp = dateToJson.get(date.toLocaleDateString())
             temp.push(elem)
