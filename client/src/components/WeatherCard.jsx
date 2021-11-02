@@ -23,6 +23,7 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -46,27 +47,27 @@ export default function WeatherCard() {
             .filter((e) => new Date(keyDate).toDateString() === new Date((e.dt + offset) * 1000).toDateString())
             .forEach((elem) => {
               date = new Date((elem.dt + offset) * 1000);
-              console.log(elem)
+              // console.log(elem)
               accordianItems.push(
                 <>
-                  <AccordionItem>
+                  <AccordionItem
+                  >
                     <h2>
-                      <AccordionButton>
-                        <Box flex="1" textAlign="left">
+                      <AccordionButton pb={4}  w={[300, 350, 400, 450, 500]} display="flex" alignItems="stretch">
+                        <Box flex="2" display="flex" textAlign="left" alignItems="stretch"
+                        >
                           {date?.toDateString()}
                         </Box>
+                          <Spacer/>
+                          <Box textAlign="right" display="flex" alignItems="stretch"> H: {elem.temp.max}</Box>
+                          <Spacer/>
+                          <Box textAlign="right" alignItems="stretch"> L: {elem.temp.min}</Box>
                         <AccordionIcon />
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4}>
-                      <Table variant="simple">
+                    <AccordionPanel pb={4} display="flex" alignItems="stretch">
+                      <Table variant="simple" alignItems="stretch" >
                         <Tbody>
-                          <Tr>
-                            <Td>Temperature</Td>
-                            <Td textAlign="right"> H: {elem.temp.max}</Td>
-                            <Td textAlign="right"> L: {elem.temp.min}</Td>
-                          </Tr>
-
                           <Tr>
                             <Td>UV Index</Td>
                             <Td textAlign="right">
@@ -96,10 +97,10 @@ export default function WeatherCard() {
       });
 
   return (
-    <Stack>
-      <Divider mt="4" mb="4" borderColor="gray.100" />
+    <Flex>
       {weather && (
         <>
+        <SimpleGrid>
           <Box
             display="flex"
             divider={<StackDivider />}
@@ -108,6 +109,7 @@ export default function WeatherCard() {
             p="4"
             borderRadius="lg"
             w="100%"
+            width="700px"
             maxW={{ base: "90vw", sm: "80vw", lg: "50vw", xl: "40vw" }}
             alignItems="stretch"
           >
@@ -115,23 +117,11 @@ export default function WeatherCard() {
               {accordianItems}
             </Accordion>
           </Box>
+          </SimpleGrid>
         </>
       )}
-    </Stack>
+    </Flex>
   );
 
-  //  return (
-  //    <Box maxW="sm" borderWidth="2px" borderRadius="lg" overflow="hidden">
-  //      <Center h="100px" fontSize="3xl" align="center">
-  //        {" "}
-  //        4 degrees{" "}
-  //      </Center>
-  //      <Flex>
-  //        <Text textAlign="center">Sent</Text>
-  //        <Spacer />
-  //        <Text textAlign="left">345,670</Text>
-  //      </Flex>
-  //    </Box>
-  //  );
 }
 
