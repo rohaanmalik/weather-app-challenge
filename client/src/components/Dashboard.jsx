@@ -11,22 +11,14 @@ export default function Dashboard() {
   const { weather } = state;
   
   let weatherMap = new Map(Object.entries(state?.weather));
-
-  let widgets = [];
-  for (let i = 0; i < weatherMap.size; i++) {
-    widgets.push(
-      <>
-        <WeatherCard key={i+1000000} />
-        <Spacer key={i*i+9}/>
-      </>
-    );
-  }
+  // console.log(weatherMap)
 
   return (
     <VStack>
       <SearchBar />
       <HStack>
-        {widgets}
+        <WeatherCard  />
+        <Spacer />
       </HStack>
     </VStack>
   );
