@@ -24,11 +24,13 @@ router.get("/",  async (req, res) => {
 
     // get uvi and add make it into one response
     const { daily } = allDataJson;
+    console.log(daily)
 
     getUviForTheDay(hourlyWeather, daily)
 
     const weatherData = aggregateJsonToDates(hourlyWeather)
     weatherData['city'] = city;
+    weatherData['daily'] = daily;
 
     res.json(weatherData);
     
