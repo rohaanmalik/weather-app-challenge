@@ -57,8 +57,10 @@ export default function WeatherCard() {
             .filter((e) => new Date(keyDate).toDateString() === new Date((e.dt + offset) * 1000).toDateString())
             .forEach((elem) => {
               date = new Date((elem.dt + offset) * 1000);
+              let sunrise = new Date((elem.sunrise + offset) * 1000).toUTCString().split(" ")[4];
+              let sunset = new Date((elem.sunset + offset) * 1000).toUTCString().split(" ")[4];
               const todayWeather = elem.weather[0].id;
-              console.log(todayWeather.toString()[0])
+              console.log(elem)
               accordianItems.push(
                 <>
                   <AccordionItem>
@@ -81,13 +83,20 @@ export default function WeatherCard() {
                         <Spacer />
                         <Box>
                           {(() => {
-                            if (todayWeather.toString()[0] === "2") return <IoThunderstormOutline/>;
-                            if (todayWeather.toString()[0] === "3") return <BsFillCloudDrizzleFill/>;
-                            if (todayWeather.toString()[0] === "5") return <BsCloudRainHeavy/>;
-                            if (todayWeather.toString()[0] === "6") return <BsCloudSnowFill/>;
-                            if (todayWeather.toString()[0] === "7") return <BsFillCloudFog2Fill/>;
-                            if (todayWeather.toString() === "800") return <BsFillSunFill/>;
-                            if (todayWeather.toString()[0] === "8") return <BsClouds/>;
+                            if (todayWeather.toString()[0] === "2")
+                              return <IoThunderstormOutline />;
+                            if (todayWeather.toString()[0] === "3")
+                              return <BsFillCloudDrizzleFill />;
+                            if (todayWeather.toString()[0] === "5")
+                              return <BsCloudRainHeavy />;
+                            if (todayWeather.toString()[0] === "6")
+                              return <BsCloudSnowFill />;
+                            if (todayWeather.toString()[0] === "7")
+                              return <BsFillCloudFog2Fill />;
+                            if (todayWeather.toString() === "800")
+                              return <BsFillSunFill />;
+                            if (todayWeather.toString()[0] === "8")
+                              return <BsClouds />;
                           })()}
                         </Box>
                         <Spacer />
@@ -108,12 +117,21 @@ export default function WeatherCard() {
                           </Tr>
 
                           <Tr>
-                            <Td>Feels like</Td>
-                            <Td textAlign="right"></Td>
+                            <Td>Humidity</Td>
+                            <Td textAlign="right">{elem.humidity}%</Td>
                           </Tr>
+
                           <Tr>
                             <Td>Wind speed (mph)</Td>
                             <Td textAlign="right">{elem.wind_speed + " "}</Td>
+                          </Tr>
+                          <Tr>
+                            <Td>Sunrise</Td>
+                            <Td textAlign="right">{sunrise}</Td>
+                          </Tr>
+                          <Tr>
+                            <Td>Sunset</Td>
+                            <Td textAlign="right">{sunset}</Td>
                           </Tr>
                         </Tbody>
                       </Table>
