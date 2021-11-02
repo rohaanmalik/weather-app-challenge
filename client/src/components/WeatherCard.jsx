@@ -53,15 +53,13 @@ export default function WeatherCard() {
                   <AccordionItem
                   >
                     <h2>
-                      <AccordionButton pb={4}  w={[300, 350, 400, 450, 500]} display="flex" alignItems="stretch">
+                      <AccordionButton pb={4}  w={[300, 350, 400, 450, 500, 550]} display="flex" alignItems="stretch">
                         <Box flex="2" display="flex" textAlign="left" alignItems="stretch"
                         >
                           {date?.toDateString()}
                         </Box>
                           <Spacer/>
-                          <Box textAlign="right" display="flex" alignItems="stretch"> H: {elem.temp.max}</Box>
-                          <Spacer/>
-                          <Box textAlign="right" alignItems="stretch"> L: {elem.temp.min}</Box>
+                          <Box textAlign="right" alignItems="stretch"> {Math.ceil(elem.temp.max -273.15)}&deg;C/{Math.floor(elem.temp.min -273.15)}&deg;C</Box>
                         <AccordionIcon />
                       </AccordionButton>
                     </h2>
