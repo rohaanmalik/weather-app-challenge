@@ -13,7 +13,6 @@ router.get("/",  async (req, res) => {
     const { list: hourlyWeather } = dataJson;
     const { city } = dataJson;
     const latLong = geocode[req.query.zip];
-    console.log(latLong);
     // process the data and give out only relevant info 
     // make another call (one-call)
     const allData = await got({
@@ -24,7 +23,6 @@ router.get("/",  async (req, res) => {
 
     // get uvi and add make it into one response
     const { daily } = allDataJson;
-    console.log(daily)
 
     getUviForTheDay(hourlyWeather, daily)
 
@@ -56,7 +54,6 @@ function aggregateJsonToDates(listA) {
     const dateToJson = new Map();
     listA.forEach(elem => {
         let date = new Date(elem.dt * 1000)
-        // console.log(date.toLocaleDateString())
         if (dateToJson.has(date.toLocaleDateString())){
             let temp = dateToJson.get(date.toLocaleDateString())
             temp.push(elem)
