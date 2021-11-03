@@ -10,4 +10,4 @@ COPY . /app
 
 CMD node src/index.js
 
-EXPOSE 8081
+EXPOSE 4000
