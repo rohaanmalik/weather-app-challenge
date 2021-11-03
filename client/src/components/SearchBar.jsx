@@ -1,10 +1,10 @@
 import {
-    Heading, HStack, IconButton, Input, VStack, FormControl
+  Heading, HStack, IconButton, Input, VStack
 } from "@chakra-ui/react";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { FiSearch } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
 import { getWeatherAsync } from "../redux/slices/weatherSlices";
-import {useDispatch, useSelector} from 'react-redux';
 
 export default function SearchBar() {
 
@@ -20,6 +20,7 @@ export default function SearchBar() {
   const state = useSelector(state => state);
   const { weather, loading, error } = state;
   // console.log(state);
+  
 
     const onSubmit = (event) => {
       if (zip) {

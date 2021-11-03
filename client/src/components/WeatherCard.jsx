@@ -1,40 +1,14 @@
+import {
+  Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Flex, SimpleGrid, Spacer, StackDivider, Table,
+  Tbody, Td, Tr
+} from "@chakra-ui/react";
 import React from "react";
 import {
-  Box,
-  Badge,
-  Divider,
-  Grid,
-  GridItem,
-  Text,
-  Center,
-  Flex,
-  Spacer,
-  Table,
-  Tbody,
-  Tr,
-  Td,
-  TableCaption,
-  StackDivider,
-  HStack,
-  Stack,
-  VStack,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  SimpleGrid,
-} from "@chakra-ui/react";
-import {useDispatch, useSelector} from 'react-redux';
-import {
-  BsClouds,
-  BsCloudRainHeavy,
-  BsFillSunFill,
-  BsFillCloudFog2Fill,
-  BsCloudSnowFill,
-  BsFillCloudDrizzleFill,
+  BsCloudRainHeavy, BsClouds, BsCloudSnowFill,
+  BsFillCloudDrizzleFill, BsFillCloudFog2Fill, BsFillSunFill
 } from "react-icons/bs";
 import { IoThunderstormOutline } from "react-icons/io5";
+import { useSelector } from 'react-redux';
 
 export default function WeatherCard() {
 

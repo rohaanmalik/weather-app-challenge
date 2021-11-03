@@ -1,8 +1,8 @@
-import { VStack, HStack, Spacer, Spinner} from "@chakra-ui/react";
-import React, {useEffect, useState} from "react";
-import WeatherCard from "./WeatherCard";
+import { HStack, Spacer, Spinner, VStack } from "@chakra-ui/react";
+import React from "react";
+import { useSelector } from 'react-redux';
 import SearchBar from "./SearchBar";
-import {useDispatch, useSelector} from 'react-redux';
+import WeatherCard from "./WeatherCard";
 
 
 export default function Dashboard() {
