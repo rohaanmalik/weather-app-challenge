@@ -1,22 +1,20 @@
-const express = require('express');
-const router = express.Router();
 const got = require('got');
-require('dotenv').config();
-const geocode = require('../utils/zip-codes-to-geo-coords.json')
+const geocode = require('../../utils/zip-codes-to-geo-coords.json')
 
-router.get("/",  async (req, res) => {
+async function weatherService(zip, API_KEY) {
+
     const data = await got({
-        url: `https://api.openweathermap.org/data/2.5/forecast?zip=${req.query.zip},us&appid=${process.env.API_KEY}`,
+        url: `https://api.openweathermap.org/data/2.5/forecast?zip=${zip},us&appid=${API_KEY}`,
     });
     const dataJson = JSON.parse(data.body);
 
     const { list: hourlyWeather } = dataJson;
     const { city } = dataJson;
-    const latLong = geocode[req.query.zip];
+    const latLong = geocode[zip];
     // process the data and give out only relevant info 
     // make another call (one-call)
     const allData = await got({
-        url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latLong[0]}&lon=${latLong[1]}&exclude=minutely,alerts&appid=${process.env.API_KEY}`,
+        url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latLong[0]}&lon=${latLong[1]}&exclude=minutely,alerts&appid=${API_KEY}`,
     });
 
     const allDataJson = JSON.parse(allData.body);
@@ -26,13 +24,10 @@ router.get("/",  async (req, res) => {
 
     getUviForTheDay(hourlyWeather, daily)
 
-    const weatherData = aggregateJsonToDates(hourlyWeather)
-    weatherData['city'] = city;
-    weatherData['daily'] = daily;
+    const weatherData = aggregateJsonToDates(hourlyWeather, daily, city);
 
-    res.json(weatherData);
-    
-});
+    return weatherData;
+}
 
 function getUviForTheDay(listA, listB){
     const dateToUvi = new Map();
@@ -49,7 +44,7 @@ function getUviForTheDay(listA, listB){
 
 }
 
-function aggregateJsonToDates(listA) {
+function aggregateJsonToDates(listA, daily, city){
     
     const dateToJson = new Map();
     listA.forEach(elem => {
@@ -67,7 +62,15 @@ function aggregateJsonToDates(listA) {
     let obj = Object.fromEntries(dateToJson);
     let jsonString = JSON.stringify(obj);
     const dataJson = JSON.parse(jsonString);
+
+    dataJson['city'] = city;
+    dataJson['daily'] = daily;
+
     return dataJson
 }
 
-module.exports = router;
+module.exports = {
+    getUviForTheDay,
+    aggregateJsonToDates,
+    weatherService,
+}

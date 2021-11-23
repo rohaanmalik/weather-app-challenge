@@ -1,5 +1,5 @@
 const express = require("express")
-const weatherRouter = require("./routes/weather")
+const weatherRouter = require("./components/weather/weather.js")
 const cors = require("cors")
 const app = express()
 
